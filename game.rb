@@ -6,6 +6,12 @@ class Game
     @on = true
   end
 
+  def restore_points
+    self.players.each do |player|
+      player.score = 3
+    end
+  end
+
   def take_inputs_from_user (question)
     puts question
     return gets.chomp
@@ -50,10 +56,13 @@ class Game
 
   def game_over(player)
     if player.score == 0
-      self.on = false
-      result = "#{player.name}, you lost the game! "
-      puts result
-
+      result = take_inputs_from_user("#{player.name}, you lost the game! enter yes to restart ")
+      if result != "yes"
+        self.on = false
+        break
+      else
+        restore_points
+      end
     end
   end
   # takes winner and gives back result string   
