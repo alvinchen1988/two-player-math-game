@@ -49,27 +49,19 @@ class Game
       else
         puts "#{player.name}, You're right! #{player.score} points left"
       end
-      game_over(player)
-    end
-
-  end
-
-  def game_over(player)
-    if player.score == 0
-      result = take_inputs_from_user("#{player.name}, you lost the game! enter yes to restart ")
-      if result != "yes"
-        self.on = false
+      if player.score == 0
+        result = take_inputs_from_user("#{player.name}, you lost the game! enter yes to restart ")
+        if result == "yes"
+          restore_points
+        else
+          self.on = false
+          # break
+          # redo
+          break
+        end
         break
-      else
-        restore_points
       end
     end
-  end
-  # takes winner and gives back result string   
-  # def game_over(winner)
-  #   # returns string of what to tell players
 
-  #   result =  "#{player.name}, you lost the game!"     ###########################
-  #   result += "Want a new game? enter yes to restart the game"
-  # end
+  end
 end
